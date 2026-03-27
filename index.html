@@ -47,36 +47,7 @@
     <!-- Fontes: Space Grotesk (titulos) + Inter (corpo) -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
 
-    <style>
-        @keyframes fadeInUp {
-            from {
-            opacity: 0;
-            transform: translateY(4px);
-            }
-            to {
-            opacity: 1;
-            transform: translateY(0);
-            }
-        }
-
-        .boot-line {
-            opacity: 0;
-            animation: fadeInUp 0.3s ease forwards;
-        }
-
-        @keyframes fillBar {
-        from { width: 0%; }
-        to   { width: var(--target); }
-        }
-
-        .skill-fill {
-        height: 100%;
-        background-color: #9cff93;
-        animation: fillBar 1s ease forwards;
-        animation-delay: var(--delay);
-        width: 0%;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css"/>
 
     <!-- Icones do material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
@@ -208,16 +179,17 @@
 
                                 <div class="grid grid-cols-2 gap-x-8 gap-y-1 text-xs max-w-md font-mono uppercase mt-2">
                                     <span class="text-primary/50">STATUS</span>
-                                    <span class="text-primary">ATIVO — ÚLTIMO ANO ENG. COMP.</span>
+                                    <span class="text-primary typewriter" data-text="ATIVO — ÚLTIMO ANO ENG. COMP."></span>
+
 
                                     <span class="text-primary/50">CARGO</span>
-                                    <span class="text-primary">BACKEND_ENGINEER</span>
+                                    <span class="text-primary typewriter" data-text="BACKEND_ENGINEER"></span>
 
                                     <span class="text-primary/50">STACK</span>
-                                    <span class="text-primary">TS / NESTJS / PRISMA / JAVA / C#</span>
+                                    <span class="text-primary typewriter" data-text="TS / NESTJS / PRISMA / JAVA / C#"> </span>
 
                                     <span class="text-primary/50">LOCALIZAÇÃO</span>
-                                    <span class="text-primary">TERRAS_MÉDIAS</span>
+                                    <span class="text-primary typewriter" data-text="TERRAS_MÉDIAS"></span>
                                 </div>
                               </div>
                          </div>
@@ -225,45 +197,45 @@
                          <div class="border-b border-primary/10 mb-8"></div>
 
                          <!-- Boot Log / Bio-->
-                         <div class="mb-10">
+                         <div class="mb-10" id="boot-log">
                             <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase mb-4">
                                 // BOOT_LOG - QUEM_SOU
                             </div>
 
                             <div class="font mono text-[11px] space-y-2 max-w-2xl">
-                                <div class="flex gap-3 boot-line" style="animation-delay: 0.2s">
+                                <div class="flex gap-3 boot-line" >
                                 <span class="text-primary/30">[0.001]</span>
-                                <span class="text-primary/80 uppercase">INICIALIZANDO PERFIL DE ENGENHEIRO DA COMPUTAÇÃO</span>
+                                <span class="text-primary/80 uppercase glitch" data-text="INICIALIZANDO PERFIL DE ENGENHEIRO DA COMPUTAÇÃO">INICIALIZANDO PERFIL DE ENGENHEIRO DA COMPUTAÇÃO</span>
                                 </div>
 
-                                <div class="flex gap-3 boot-line" style="animation-delay: 0.6s">
+                                <div class="flex gap-3 boot-line" >
                                 <span class="text-primary/30">[0.012]</span>
                                 <span class="text-primary/80 uppercase">FORMANDO EM ENG. COMPUTAÇÃO - FOCO EM SISTEMAS ROBUSTOS</span>
                                 </div>
 
-                                <div class="flex gap-3 boot-line" style="animation-delay: 1.0s">
+                                <div class="flex gap-3 boot-line" >
                                 <span class="text-primary/30">[0.034]</span>
                                 <span class="text-primary/80 uppercase">EXPERIÊNCIA: APIS REST, MICROSERVIÇOS, ORM COM PRISMA</span>
                                 </div>
 
-                                <div class="flex gap-3 boot-line" style="animation-delay: 1.4s">
+                                <div class="flex gap-3 boot-line" >
                                 <span class="text-primary/30">[0.055]</span>
                                 <span class="text-primary/80 uppercase">INTERESSES: GERAÇÃO PROCEDURAL + HARDWARE + EMBARCADOS</span>
                                 </div>
 
-                                <div class="flex gap-3 boot-line" style="animation-delay: 1.8s">
+                                <div class="flex gap-3 boot-line">
                                 <span class="text-primary/30">[0.089]</span>
                                 <span class="text-primary/80 uppercase">APRENDIZADO CONTÍNUO: INGLÊS TÉCNICO + CONCURSOS DE TI</span>
                                 </div>
 
-                                <div class="flex gap-3 mt-2 boot-line" style="animation-delay: 2.2s">
+                                <div class="flex gap-3 mt-2 boot-line">
                                 <span class="text-primary/30">[1.000]</span>
-                                <span class="text-primary animate-pulse uppercase">SISTEMA PRONTO. AGUARDANDO PRÓXIMO_COMANDO_</span>
+                                <span class="text-primary animate-pulse uppercase glitch" data-text="SISTEMA PRONTO. AGUARDANDO PRÓXIMO_COMANDO_">SISTEMA PRONTO. AGUARDANDO PRÓXIMO_COMANDO_</span>
                                 </div>
                             </div>
                          </div>
                          <!-- Skill Matrix -->
-                        <div class="mb-10">
+                        <div class="mb-10" id="skill-matrix">
 
                             <div class="flex justify-between items-end border-b border-primary/10 pb-2 mb-6">
                                 <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase">
@@ -277,63 +249,63 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5 max-w-2xl">
 
                                 <!-- Cada skill segue esse padrão -->
-                                <div class="space-y-1">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line" style="animation-delay: 2.4s">
+                                <div class="space-y-1 skill-row">
+                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
                                     <span class="text-primary/60">TYPESCRIPT / JS</span>
                                     <span class="text-primary counter" data-target="80">0%</span>
                                 </div>
                                 <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill" style="--target: 80%; --delay: 2.4s"></div>
+                                <div class="skill-fill"></div>
                                 </div>
                                 </div>
 
-                                <div class="space-y-1">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line" style="animation-delay: 2.6s">
+                                <div class="space-y-1 skill-row">
+                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
                                     <span class="text-primary/60">NESTJS</span>
                                     <span class="text-primary counter" data-target="70">0%</span>
                                 </div>
                                 <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill" style="--target: 70%; --delay: 2.6s"></div>
+                                <div class="skill-fill"></div>
                                 </div>
                                 </div>
 
-                                <div class="space-y-1">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line" style="animation-delay: 2.8s">
+                                <div class="space-y-1 skill-row">
+                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
                                     <span class="text-primary/60">PYTHON</span>
                                     <span class="text-primary counter" data-target="70">0%</span>
                                 </div>
                                 <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill" style="--target: 70%; --delay: 2.8s"></div>
+                                <div class="skill-fill"></div>
                                 </div>
                                 </div>
 
-                                <div class="space-y-1">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line" style="animation-delay: 3.0s">
+                                <div class="space-y-1 skill-row">
+                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
                                     <span class="text-primary/60">PRISMA / POSTGRES</span>
                                     <span class="text-primary counter" data-target="75">0%</span>
                                 </div>
                                 <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill" style="--target: 75%; --delay: 3.0s"></div>
+                                <div class="skill-fill"></div>
                                 </div>
                                 </div>
 
-                                <div class="space-y-1">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line" style="animation-delay: 3.2s">
+                                <div class="space-y-1 skill-row">
+                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
                                     <span class="text-primary/60">C / EMBARCADOS</span>
                                     <span class="text-primary counter" data-target="65">0%</span>
                                 </div>
                                 <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill" style="--target: 65%; --delay: 3.2s"></div>
+                                <div class="skill-fill"></div>
                                 </div>
                                 </div>
 
-                                <div class="space-y-1">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line" style="animation-delay: 3.4s">
+                                <div class="space-y-1 skill-row">
+                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
                                     <span class="text-primary/60">NODE.JS</span>
                                     <span class="text-primary counter" data-target="75">0%</span>
                                 </div>
                                 <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill" style="--target: 75%; --delay: 3.4s"></div>
+                                <div class="skill-fill"></div>
                                 </div>
                                 </div>
 
@@ -344,32 +316,7 @@
         </main>
     
         <!-- JS do Contador-->
-        <script>
-            document.querySelectorAll('.counter').forEach(el => {
-                const target = parseInt(el.dataset.target);
-                const delay  = parseFloat(
-                el.closest('.space-y-1')
-                    .querySelector('.skill-fill')
-                    .style.getPropertyValue('--delay')
-                ) * 1000;
+        <script src="js/main.js"></script>
 
-                setTimeout(() => {
-                let current = 0;
-                const duration = 1000; // 1 segundo, igual à barra
-                const steps = 40;
-                const increment = target / steps;
-                const interval = duration / steps;
-
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                    }
-                    el.textContent = Math.floor(current) + '%';
-                }, interval);
-                }, delay);
-            });
-        </script>
     </body>
 </html>

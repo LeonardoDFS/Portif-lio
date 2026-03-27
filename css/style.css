@@ -1,0 +1,75 @@
+@keyframes fadeInUp {
+            from {
+            opacity: 0;
+            transform: translateY(4px);
+            }
+            to {
+            opacity: 1;
+            transform: translateY(0);
+            }
+        }
+
+        .boot-line {
+          opacity: 0;
+        }
+
+        .boot-line.visible {
+          animation: fadeInUp 0.3s ease forwards;
+        }
+
+@keyframes fillBar {
+    from { width: 0%; }
+    to   { width: var(--target); }
+    }
+
+    .skill-fill {
+    height: 100%;
+    background-color: #9cff93;
+    animation: fillBar 1s ease forwards;
+    animation-delay: var(--delay);
+    width: 0%;
+    }
+
+/* Glitch na última linha do boot log */
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-2px, 0); }
+  20%       { clip-path: inset(30% 0 50% 0); transform: translate(2px, 0); }
+  40%       { clip-path: inset(70% 0 10% 0); transform: translate(-1px, 0); }
+  60%       { clip-path: inset(10% 0 80% 0); transform: translate(1px, 0); }
+  80%       { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(50% 0 30% 0); transform: translate(2px, 0); }
+  20%       { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 0); }
+  40%       { clip-path: inset(80% 0 5%  0); transform: translate(1px, 0); }
+  60%       { clip-path: inset(20% 0 60% 0); transform: translate(-1px, 0); }
+  80%       { clip-path: inset(60% 0 20% 0); transform: translate(2px, 0); }
+}
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  color: #ff55f1;
+  animation: glitch-1 3s infinite;
+  animation-delay: 4s;
+}
+
+.glitch::after {
+  color: #8a95ff;
+  animation: glitch-2 3s infinite;
+  animation-delay: 4s;
+}
+
