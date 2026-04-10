@@ -175,47 +175,25 @@ function scheduleSystemError() {
 // ── INIT ──────────────────────────────
 document.querySelectorAll('.win95-window').forEach(win => {
   makeDraggable(win);
-
-  // foca ao clicar em qualquer parte da janela
   win.addEventListener('mousedown', () => focusWindow(win.id));
 });
 
 startClock();
 
-// Dispara o System Error quando ERA_02 fica ativa
-const observer = new MutationObserver(() => {
-  const era2 = document.getElementById('era-02');
-  if (era2 && era2.classList.contains('active')) {
-    scheduleSystemError();
-    observer.disconnect(); // só uma vez
-  }
-});
-
-// Inicia o DOOM quando a janela de erro for fechada
-function initDoom() {
-  if (window.doomStarted) return;
-  window.doomStarted = true;
-
-  const container = document.getElementById('jsdos-container');
-
-  // Tenta carregar — se falhar mostra mensagem
-  try {
-    Dos(container, {
-      url: 'assets/doom/freedoom.jsdos',
+// Dispara System Error quando ERA_02 fica ativa
+const era2el = document.getElementById('era-02');
+if (era2el) {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if ([...mutation.target.classList].includes('active')) {
+        setTimeout(() => openWindow('win-error'), 3000);
+        observer.disconnect();
+      }
     });
-  } catch(e) {
-    container.innerHTML = `
-      <div style="display:flex; flex-direction:column; align-items:center;
-                  justify-content:center; height:100%; color:#9cff93;
-                  font-family:monospace; font-size:12px; text-align:center; gap:8px;">
-        <div>FREEDOOM.EXE</div>
-        <div style="color:#fff; font-size:10px;">Requer servidor HTTP com CORS.</div>
-        <div style="color:#666; font-size:10px;">Disponível após deploy no GitHub Pages.</div>
-      </div>`;
-  }
-}
+  });
 
-observer.observe(document.getElementById('era-02'), {
-  attributes: true,
-  attributeFilter: ['class']
-});
+  observer.observe(era2el, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+}
