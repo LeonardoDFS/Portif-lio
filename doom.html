@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <script src="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.js"></script>
+  <link href="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.css" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { background: #000; width: 100vw; height: 100vh; overflow: hidden; }
+    #dos { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="dos"></div>
+  <script>
+    Dos(document.getElementById('dos'), {
+      url: 'assets/doom/freedoom.jsdos',
+    });
+  </script>
+</body>
+</html>
