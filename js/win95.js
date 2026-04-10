@@ -13,6 +13,8 @@ function openWindow(id) {
     focusWindow(win);
     addToTaskbar(id);
 
+    // Inicializa o DOOM só quando a janela abrir
+    if (id === 'win-snake') initDoom();
 }
 
 // ── FECHAR JANELA ─────────────────────
@@ -173,25 +175,41 @@ function scheduleSystemError() {
 // ── INIT ──────────────────────────────
 document.querySelectorAll('.win95-window').forEach(win => {
   makeDraggable(win);
+
+  // foca ao clicar em qualquer parte da janela
   win.addEventListener('mousedown', () => focusWindow(win.id));
 });
 
 startClock();
 
-// Dispara System Error quando ERA_02 fica ativa
-const era2el = document.getElementById('era-02');
-if (era2el) {
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if ([...mutation.target.classList].includes('active')) {
-        setTimeout(() => openWindow('win-error'), 3000);
-        observer.disconnect();
-      }
+// Dispara o System Error quando ERA_02 fica ativa
+const observer = new MutationObserver(() => {
+  const era2 = document.getElementById('era-02');
+  if (era2 && era2.classList.contains('active')) {
+    scheduleSystemError();
+    observer.disconnect(); // só uma vez
+  }
+});
+
+// Inicia o DOOM quando a janela de erro for fechada
+function initDoom() {
+  if (window.doomStarted) return;
+  window.doomStarted = true;
+
+  Dos(document.getElementById('jsdos-container'), {
+    wdosboxUrl: 'https://js-dos.com/v7/build/releases/latest/js-dos/wdosbox.js',
+  }).ready((fs, main) => {
+    fs.extract('assets/doom/freedoom1.wad').then(() => {
+      main([
+        '-c', 'mount c .',
+        '-c', 'c:',
+        '-c', 'doom -iwad freedoom1.wad'
+      ]);
     });
   });
-
-  observer.observe(era2el, {
-    attributes: true,
-    attributeFilter: ['class']
-  });
 }
+
+observer.observe(document.getElementById('era-02'), {
+  attributes: true,
+  attributeFilter: ['class']
+});
