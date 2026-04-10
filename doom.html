@@ -2,20 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <script src="assets/jsdos/js-dos.js"></script>
   <link href="assets/jsdos/js-dos.css" rel="stylesheet"/>
   <style>
-    * { margin: 0; padding: 0; }
-    body { background: #000; width: 100vw; height: 100vh; overflow: hidden; }
-    #dos { width: 100%; height: 100%; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+    #dos {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   </style>
 </head>
 <body>
   <div id="dos"></div>
+  <script src="assets/jsdos/js-dos.js"></script>
   <script>
-    Dos(document.getElementById('dos'), {
-      wdosboxUrl: 'assets/jsdos/wdosbox.js',
-      url: 'assets/doom/freedoom.jsdos',
+    window.addEventListener('load', () => {
+      Dos(document.getElementById('dos'), {
+        wdosboxUrl: '/assets/jsdos/wdosbox.js',
+        url: '/assets/doom/freedoom.jsdos',
+      });
     });
   </script>
 </body>
