@@ -8,6 +8,10 @@
     <!-- TailWind CSS via CDN-->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- DOOM -->
+    <script src="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.js"></script>
+    <link href="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.css" rel="stylesheet"/>
+
     <script>
     tailwind.config = {
         darkMode: "class",
@@ -53,6 +57,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
     </head>
     <body class="bg-surface text-primary font-headline">
+
+        <!-- CRT Overlay -->
+        <div class="crt-overlay"></div>
+
+        <!-- Glitch Transition Overlay -->
+        <div id="glitch-overlay">
+        <div class="loading-text" id="loading-text">LOADING ERA_01...</div>
+        </div>
+
         <header class="fixed top-0 left-0 w-full z-50
                        flex justify-between items-center
                        px-6 py-4
@@ -145,178 +158,472 @@
         
         </aside>
 
-        <main class="ml-16 md:ml-60 pt-20 pb-24 px-4 md:px-10 min-h-screen bg-surface">
+        <section id="era-01" class="era-slide bg-surface">
 
-            <!-- Container que simula a tela CRT-->
-            <div class="max-w-5xl mx-auto mt-6
-                        bg-black
-                        border-[10px] border-surface-container-highest
-                        shadow-[0_0_80px_rgba(156,255,147,0.08)]
-                        relative overflow-hidden">
-            <!-- Área interna da tela -->
-             <div class="p-6 md:p-10 text-primary">
-                        <!-- Cabeçalho do perfil-->
-                         <div class="flex flex-col md:flex-row gap-8 mb-10 items-start">
+            <div class="pt-20 pb-8 px-4 md:px-10 h-full overflow-y-auto"> 
 
-                            <!-- ASCII Art com as Iniciais-->
-                             <pre class="font-mono text-[9px] leading-tight text-primary/60 flex-shrink-0">
-                                 _      _____ ____
-                                | |    |  ___/ ___|
-                                | |    | |_  \___ \
-                                | |___ |  _|  ___| |
-                                |_____|_|   |____/
-                             </pre>
+                <!-- Container que simula a tela CRT-->
+                <div class="max-w-5xl mx-auto mt-6
+                            bg-black
+                            border-[10px] border-surface-container-highest
+                            shadow-[0_0_80px_rgba(156,255,147,0.08)]
+                            relative overflow-hidden">
 
-                             <!-- Dados do operador -->
-                              <div class="flex-1 space-y-3">
-                                <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase">
-                                    // SYSTEM_PROFILE_v2026
-                                </div>
+                    <div class="scanline-beam"></div>
 
-                                <h1 class="text-2xl md:text-3xl font-black font-headline tracking-tighter uppercase">
-                                    OPERATOR_ID: LEONARDO_D._SANTOS
-                                </h1>
+                <!-- Área interna da tela -->
+                <div class="p-6 md:p-10 text-primary">
+                            <!-- Cabeçalho do perfil-->
+                            <div class="flex flex-col md:flex-row gap-8 mb-10 items-start">
 
-                                <div class="grid grid-cols-2 gap-x-8 gap-y-1 text-xs max-w-md font-mono uppercase mt-2">
-                                    <span class="text-primary/50">STATUS</span>
-                                    <span class="text-primary typewriter" data-text="ATIVO — ÚLTIMO ANO ENG. COMP."></span>
+                                <!-- ASCII Art com as Iniciais-->
+                                <pre class="font-mono text-[9px] leading-tight text-primary/60 flex-shrink-0">
+                                    _      _____ ____
+                                    | |    |  ___/ ___|
+                                    | |    | |_  \___ \
+                                    | |___ |  _|  ___| |
+                                    |_____|_|   |____/
+                                </pre>
+
+                                <!-- Dados do operador -->
+                                <div class="flex-1 space-y-3">
+                                    <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase">
+                                        // SYSTEM_PROFILE_v2026
+                                    </div>
+
+                                    <h1 class="text-2xl md:text-3xl font-black font-headline tracking-tighter uppercase">
+                                        OPERATOR_ID: LEONARDO_D._SANTOS
+                                    </h1>
+
+                                    <div class="grid grid-cols-2 gap-x-8 gap-y-1 text-xs max-w-md font-mono uppercase mt-2">
+                                        <span class="text-primary/50">STATUS</span>
+                                        <span class="text-primary typewriter" data-text="ATIVO — ÚLTIMO ANO ENG. COMP."></span>
 
 
-                                    <span class="text-primary/50">CARGO</span>
-                                    <span class="text-primary typewriter" data-text="BACKEND_ENGINEER"></span>
+                                        <span class="text-primary/50">CARGO</span>
+                                        <span class="text-primary typewriter" data-text="BACKEND_ENGINEER"></span>
 
-                                    <span class="text-primary/50">STACK</span>
-                                    <span class="text-primary typewriter" data-text="TS / NESTJS / PRISMA / JAVA / C#"> </span>
+                                        <span class="text-primary/50">STACK</span>
+                                        <span class="text-primary typewriter" data-text="TS / NESTJS / PRISMA / JAVA / C#"> </span>
 
-                                    <span class="text-primary/50">LOCALIZAÇÃO</span>
-                                    <span class="text-primary typewriter" data-text="TERRAS_MÉDIAS"></span>
-                                </div>
-                              </div>
-                         </div>
-
-                         <div class="border-b border-primary/10 mb-8"></div>
-
-                         <!-- Boot Log / Bio-->
-                         <div class="mb-10" id="boot-log">
-                            <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase mb-4">
-                                // BOOT_LOG - QUEM_SOU
-                            </div>
-
-                            <div class="font mono text-[11px] space-y-2 max-w-2xl">
-                                <div class="flex gap-3 boot-line" >
-                                <span class="text-primary/30">[0.001]</span>
-                                <span class="text-primary/80 uppercase glitch" data-text="INICIALIZANDO PERFIL DE ENGENHEIRO DA COMPUTAÇÃO">INICIALIZANDO PERFIL DE ENGENHEIRO DA COMPUTAÇÃO</span>
-                                </div>
-
-                                <div class="flex gap-3 boot-line" >
-                                <span class="text-primary/30">[0.012]</span>
-                                <span class="text-primary/80 uppercase">FORMANDO EM ENG. COMPUTAÇÃO - FOCO EM SISTEMAS ROBUSTOS</span>
-                                </div>
-
-                                <div class="flex gap-3 boot-line" >
-                                <span class="text-primary/30">[0.034]</span>
-                                <span class="text-primary/80 uppercase">EXPERIÊNCIA: APIS REST, MICROSERVIÇOS, ORM COM PRISMA</span>
-                                </div>
-
-                                <div class="flex gap-3 boot-line" >
-                                <span class="text-primary/30">[0.055]</span>
-                                <span class="text-primary/80 uppercase">INTERESSES: GERAÇÃO PROCEDURAL + HARDWARE + EMBARCADOS</span>
-                                </div>
-
-                                <div class="flex gap-3 boot-line">
-                                <span class="text-primary/30">[0.089]</span>
-                                <span class="text-primary/80 uppercase">APRENDIZADO CONTÍNUO: INGLÊS TÉCNICO + CONCURSOS DE TI</span>
-                                </div>
-
-                                <div class="flex gap-3 mt-2 boot-line">
-                                <span class="text-primary/30">[1.000]</span>
-                                <span class="text-primary animate-pulse uppercase glitch" data-text="SISTEMA PRONTO. AGUARDANDO PRÓXIMO_COMANDO_">SISTEMA PRONTO. AGUARDANDO PRÓXIMO_COMANDO_</span>
-                                </div>
-                            </div>
-                         </div>
-                         <!-- Skill Matrix -->
-                        <div class="mb-10" id="skill-matrix">
-
-                            <div class="flex justify-between items-end border-b border-primary/10 pb-2 mb-6">
-                                <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase">
-                                // SKILL_MATRIX
-                                </div>
-                                <div class="font-mono text-[10px] text-primary/40 uppercase">
-                                KERNEL: BACKEND_CORE
+                                        <span class="text-primary/50">LOCALIZAÇÃO</span>
+                                        <span class="text-primary typewriter" data-text="TERRAS_MÉDIAS"></span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5 max-w-2xl">
+                            <div class="border-b border-primary/10 mb-8"></div>
 
-                                <!-- Cada skill segue esse padrão -->
-                                <div class="space-y-1 skill-row">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
-                                    <span class="text-primary/60">TYPESCRIPT / JS</span>
-                                    <span class="text-primary counter" data-target="80">0%</span>
-                                </div>
-                                <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill"></div>
-                                </div>
+                            <!-- Boot Log / Bio-->
+                            <div class="mb-10" id="boot-log">
+                                <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase mb-4">
+                                    // BOOT_LOG - QUEM_SOU
                                 </div>
 
-                                <div class="space-y-1 skill-row">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
-                                    <span class="text-primary/60">NESTJS</span>
-                                    <span class="text-primary counter" data-target="70">0%</span>
-                                </div>
-                                <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill"></div>
-                                </div>
-                                </div>
+                                <div class="font mono text-[11px] space-y-2 max-w-2xl">
+                                    <div class="flex gap-3 boot-line" >
+                                    <span class="text-primary/30">[0.001]</span>
+                                    <span class="text-primary/80 uppercase glitch" data-text="INICIALIZANDO PERFIL DE ENGENHEIRO DA COMPUTAÇÃO">INICIALIZANDO PERFIL DE ENGENHEIRO DA COMPUTAÇÃO</span>
+                                    </div>
 
-                                <div class="space-y-1 skill-row">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
-                                    <span class="text-primary/60">PYTHON</span>
-                                    <span class="text-primary counter" data-target="70">0%</span>
-                                </div>
-                                <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill"></div>
-                                </div>
-                                </div>
+                                    <div class="flex gap-3 boot-line" >
+                                    <span class="text-primary/30">[0.012]</span>
+                                    <span class="text-primary/80 uppercase">FORMANDO EM ENG. COMPUTAÇÃO - FOCO EM SISTEMAS ROBUSTOS</span>
+                                    </div>
 
-                                <div class="space-y-1 skill-row">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
-                                    <span class="text-primary/60">PRISMA / POSTGRES</span>
-                                    <span class="text-primary counter" data-target="75">0%</span>
-                                </div>
-                                <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill"></div>
-                                </div>
-                                </div>
+                                    <div class="flex gap-3 boot-line" >
+                                    <span class="text-primary/30">[0.034]</span>
+                                    <span class="text-primary/80 uppercase">EXPERIÊNCIA: APIS REST, MICROSERVIÇOS, ORM COM PRISMA</span>
+                                    </div>
 
-                                <div class="space-y-1 skill-row">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
-                                    <span class="text-primary/60">C / EMBARCADOS</span>
-                                    <span class="text-primary counter" data-target="65">0%</span>
-                                </div>
-                                <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill"></div>
-                                </div>
-                                </div>
+                                    <div class="flex gap-3 boot-line" >
+                                    <span class="text-primary/30">[0.055]</span>
+                                    <span class="text-primary/80 uppercase">INTERESSES: GERAÇÃO PROCEDURAL + HARDWARE + EMBARCADOS</span>
+                                    </div>
 
-                                <div class="space-y-1 skill-row">
-                                <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
-                                    <span class="text-primary/60">NODE.JS</span>
-                                    <span class="text-primary counter" data-target="75">0%</span>
-                                </div>
-                                <div class="w-full h-[3px] bg-primary/10">
-                                <div class="skill-fill"></div>
-                                </div>
-                                </div>
+                                    <div class="flex gap-3 boot-line">
+                                    <span class="text-primary/30">[0.089]</span>
+                                    <span class="text-primary/80 uppercase">APRENDIZADO CONTÍNUO: INGLÊS TÉCNICO + CONCURSOS DE TI</span>
+                                    </div>
 
+                                    <div class="flex gap-3 mt-2 boot-line">
+                                    <span class="text-primary/30">[1.000]</span>
+                                    <span class="text-primary animate-pulse uppercase glitch" data-text="SISTEMA PRONTO. AGUARDANDO PRÓXIMO_COMANDO_">SISTEMA PRONTO. AGUARDANDO PRÓXIMO_COMANDO_</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <!-- Skill Matrix -->
+                            <div class="mb-10" id="skill-matrix">
+
+                                <div class="flex justify-between items-end border-b border-primary/10 pb-2 mb-6">
+                                    <div class="font-mono text-[10px] text-primary/40 tracking-widest uppercase">
+                                    // SKILL_MATRIX
+                                    </div>
+                                    <div class="font-mono text-[10px] text-primary/40 uppercase">
+                                    KERNEL: BACKEND_CORE
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5 max-w-2xl">
+
+                                    <!-- Cada skill segue esse padrão -->
+                                    <div class="space-y-1 skill-row">
+                                    <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
+                                        <span class="text-primary/60">TYPESCRIPT / JS</span>
+                                        <span class="text-primary counter" data-target="80">0%</span>
+                                    </div>
+                                    <div class="w-full h-[3px] bg-primary/10">
+                                    <div class="skill-fill"></div>
+                                    </div>
+                                    </div>
+
+                                    <div class="space-y-1 skill-row">
+                                    <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
+                                        <span class="text-primary/60">NESTJS</span>
+                                        <span class="text-primary counter" data-target="70">0%</span>
+                                    </div>
+                                    <div class="w-full h-[3px] bg-primary/10">
+                                    <div class="skill-fill"></div>
+                                    </div>
+                                    </div>
+
+                                    <div class="space-y-1 skill-row">
+                                    <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
+                                        <span class="text-primary/60">PYTHON</span>
+                                        <span class="text-primary counter" data-target="70">0%</span>
+                                    </div>
+                                    <div class="w-full h-[3px] bg-primary/10">
+                                    <div class="skill-fill"></div>
+                                    </div>
+                                    </div>
+
+                                    <div class="space-y-1 skill-row">
+                                    <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
+                                        <span class="text-primary/60">PRISMA / POSTGRES</span>
+                                        <span class="text-primary counter" data-target="75">0%</span>
+                                    </div>
+                                    <div class="w-full h-[3px] bg-primary/10">
+                                    <div class="skill-fill"></div>
+                                    </div>
+                                    </div>
+
+                                    <div class="space-y-1 skill-row">
+                                    <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
+                                        <span class="text-primary/60">C / EMBARCADOS</span>
+                                        <span class="text-primary counter" data-target="65">0%</span>
+                                    </div>
+                                    <div class="w-full h-[3px] bg-primary/10">
+                                    <div class="skill-fill"></div>
+                                    </div>
+                                    </div>
+
+                                    <div class="space-y-1 skill-row">
+                                    <div class="flex justify-between font-mono text-[11px] uppercase boot-line">
+                                        <span class="text-primary/60">NODE.JS</span>
+                                        <span class="text-primary counter" data-target="75">0%</span>
+                                    </div>
+                                    <div class="w-full h-[3px] bg-primary/10">
+                                    <div class="skill-fill"></div>
+                                    </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Linha de comando -->
+                    <div class="p-4 bg-primary/5 border border-primary/10
+                                font-mono text-xs flex items-center gap-3 uppercase mt-4">
+                    <span class="text-primary">&gt;</span>
+                    <span class="text-primary/70">NAVEGANDO PELO PORTFOLIO DE LEONARDO FREITAS DOS SANTOS</span>
+                    <span class="w-2 h-4 bg-primary cursor-blink"></span>
+                    </div>
                 </div>
             </div>
-        </main>
-    
-        <!-- JS do Contador-->
-        <script src="js/main.js"></script>
+        </section>
 
+        <!-- ERA 02 — Desktop Win95 -->
+        <section id="era-02" class="era-slide h-screen flex flex-col"
+                style="background-color: #008080;">
+
+        <!-- Área do desktop — onde as janelas vão flutuar -->
+        <div id="desktop-02" class="flex-1 relative pt-16 overflow-hidden">
+
+            <!-- Ícones do desktop -->
+            <div class="flex flex-col gap-6 p-4 w-24">
+
+                <div class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
+                    onclick="openWindow('win-projects')">
+                    <span class="material-symbols-outlined text-4xl text-white"
+                        style="font-variation-settings: 'FILL' 1">folder</span>
+                    <span class="text-white text-[11px] text-center font-body px-1"
+                        style="text-shadow: 1px 1px #000;">
+                    C:\PROJECTS
+                    </span>
+                </div>
+
+                <div class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
+                    onclick="openWindow('win-snake')">
+                    <span class="material-symbols-outlined text-4xl text-white"
+                        style="font-variation-settings: 'FILL' 1">sports_esports</span>
+                    <span class="text-white text-[11px] text-center font-body px-1"
+                        style="text-shadow: 1px 1px #000;">
+                    DOOM.EXE
+                    </span>
+                </div>
+
+                <div class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
+                    onclick="openWindow('win-about')">
+                    <span class="material-symbols-outlined text-4xl text-white"
+                        style="font-variation-settings: 'FILL' 1">person</span>
+                    <span class="text-white text-[11px] text-center font-body px-1"
+                        style="text-shadow: 1px 1px #000;">
+                    ABOUT.TXT
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- ═══════════════════════════════════════
+                JANELA: C:\PROJECTS
+            ═══════════════════════════════════════ -->
+            <div id="win-projects" class="win95-window"
+                style="display:none; top: 60px; left: 120px; width: 480px;">
+
+            <!-- Título bar -->
+            <div class="win95-titlebar" data-window="win-projects">
+                <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm"
+                        style="font-variation-settings:'FILL' 1">folder</span>
+                <span>C:\PROJECTS\ERA_02</span>
+                </div>
+                <div class="flex gap-1">
+                <button class="win95-btn" onclick="minimizeWindow('win-projects')">─</button>
+                <button class="win95-btn" onclick="maximizeWindow('win-projects')">□</button>
+                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-projects')">✕</button>
+                </div>
+            </div>
+
+            <!-- Conteúdo -->
+            <div class="win95-content">
+                <p class="text-sm font-body mb-4" style="color:#000">
+                3 object(s) — My Computer
+                </p>
+
+                <!-- Lista de arquivos -->
+                <div class="space-y-1">
+
+                <div class="win95-file-row">
+                    <span class="material-symbols-outlined text-xl"
+                        style="color:#000080; font-variation-settings:'FILL' 1">draft</span>
+                    <div class="flex-1">
+                    <div class="font-bold text-sm font-body" style="color:#000">
+                        MARKETPLACE_INSTRUTORES.EXE
+                    </div>
+                    <div class="text-xs font-body" style="color:#444">
+                        NestJS · Prisma · PostgreSQL — Sistema completo de marketplace
+                    </div>
+                    </div>
+                    <span class="text-xs font-body" style="color:#444">1,024 KB</span>
+                </div>
+
+                <div class="win95-file-row">
+                    <span class="material-symbols-outlined text-xl"
+                        style="color:#000080; font-variation-settings:'FILL' 1">draft</span>
+                    <div class="flex-1">
+                    <div class="font-bold text-sm font-body" style="color:#000">
+                        SPACE_INVADERS_EVO.EXE
+                    </div>
+                    <div class="text-xs font-body" style="color:#444">
+                        C · Geração Procedural — Jogo com evolução de inimigos
+                    </div>
+                    </div>
+                    <span class="text-xs font-body" style="color:#444">512 KB</span>
+                </div>
+
+                <div class="win95-file-row">
+                    <span class="material-symbols-outlined text-xl"
+                        style="color:#000080; font-variation-settings:'FILL' 1">description</span>
+                    <div class="flex-1">
+                    <div class="font-bold text-sm font-body" style="color:#000">
+                        README_FIRST.TXT
+                    </div>
+                    <div class="text-xs font-body" style="color:#444">
+                        2 KB · Documento de texto
+                    </div>
+                    </div>
+                    <span class="text-xs font-body" style="color:#444">2 KB</span>
+                </div>
+
+                </div>
+            </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════
+                JANELA: ABOUT.TXT
+            ═══════════════════════════════════════ -->
+            <div id="win-about" class="win95-window"
+                style="display:none; top: 80px; left: 320px; width: 360px;">
+
+            <div class="win95-titlebar" data-window="win-about">
+                <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm"
+                        style="font-variation-settings:'FILL' 1">person</span>
+                <span>ABOUT.TXT — Notepad</span>
+                </div>
+                <div class="flex gap-1">
+                <button class="win95-btn" onclick="minimizeWindow('win-about')">─</button>
+                <button class="win95-btn" onclick="maximizeWindow('win-about')">□</button>
+                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-about')">✕</button>
+                </div>
+            </div>
+
+            <div class="win95-content font-mono text-sm" style="color:#000; white-space: pre-wrap;">
+            LEONARDO FREITAS DOS SANTOS
+            ================================
+            Estudante de Eng. Computação (UTFPR)
+            Foco: Backend + Sistemas Robustos
+
+            STACK:
+            - TypeScript / NestJS / Node.js
+            - Prisma ORM / PostgreSQL
+            - C / Microcontroladores
+            - Python
+
+            INTERESSES:
+            - Geração Procedural
+            - Hardware / Embarcados
+            - Arquitetura de Software
+
+            LOCALIZAÇÃO: Bandeirantes, PR
+            </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════
+                JANELA: SYSTEM ERROR (automática)
+            ═══════════════════════════════════════ -->
+            <div id="win-error" class="win95-window"
+                style="display:none; top: 200px; left: 300px; width: 320px;">
+
+            <div class="win95-titlebar win95-titlebar-error" data-window="win-error">
+                <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm"
+                        style="font-variation-settings:'FILL' 1">error</span>
+                <span>System Error</span>
+                </div>
+                <div class="flex gap-1">
+                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-error')">✕</button>
+                </div>
+            </div>
+
+            <div class="win95-content">
+                <div class="flex gap-4 items-start mb-4">
+                <span class="material-symbols-outlined text-4xl"
+                        style="color: red; font-variation-settings:'FILL' 1">cancel</span>
+                <div class="font-body text-sm" style="color:#000">
+                    <p class="font-bold mb-1">Illegal Operation</p>
+                    <p>Timeline overflow detected in Era_02 memory segment. System might become unstable.</p>
+                </div>
+                </div>
+                <div class="flex justify-end gap-2">
+                <button class="win95-action-btn" onclick="closeWindow('win-error')">OK</button>
+                <button class="win95-action-btn" onclick="closeWindow('win-error')">Cancel</button>
+                </div>
+            </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════
+                JANELA: SNAKE / FREEDOOM (placeholder)
+            ═══════════════════════════════════════ -->
+            <div id="win-snake" class="win95-window"
+                    style="display:none; top: 50px; left: 150px; width: 660px;">
+
+                    <div class="win95-titlebar" data-window="win-snake">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm"
+                                  style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+                            <span>FREEDOOM.EXE</span>
+                        </div>
+                        <div class="flex gap-1">
+                            <button class="win95-btn" onclick="minimizeWindow('win-snake')">─</button>
+                            <button class="win95-btn" onclick="maximizeWindow('win-snake')">□</button>
+                            <button class="win95-btn win95-btn-close" onclick="closeWindow('win-snake')">✕</button>
+                        </div>
+                    </div>
+
+                    <div class="win95-content" style="padding:0; background:#000; height: 400px;">
+                        <div id="jsdos-container" style="width:100%; height:100%;"></div>
+                    </div>
+
+            
+            </div>
+        </div>
+
+        <!-- Taskbar — será preenchida no próximo passo -->
+        <div id="taskbar-02"
+             class="flex-shrink-0 w-full h-10 flex items-center px-1 gap-1"
+             style="background: #c0c0c0;
+                    border-top: 2px solid #ffffff;
+                    box-shadow: inset 0 1px 0 #dfdfdf;">
+
+            <!-- Botão Start -->
+            <button class="flex items-center gap-2 px-2 h-8 font-bold text-sm font-body"
+                    style="background: #c0c0c0;
+                        border-top: 2px solid #ffffff;
+                        border-left: 2px solid #ffffff;
+                        border-right: 2px solid #808080;
+                        border-bottom: 2px solid #808080;">
+
+                <!-- Logo Windows 95 em CSS puro -->
+                <div style="width: 16px; height: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; transform: skewX(-5deg);">
+                    <div style="background: #ff0000;"></div> <!-- vermelho -->
+                    <div style="background: #00aa00;"></div> <!-- verde -->
+                    <div style="background: #0000ff;"></div> <!-- azul -->
+                    <div style="background: #ffcc00;"></div> <!-- amarelo -->
+                </div>
+
+                <span style="font-weight: 700; font-size: 13px; color: #000;">Start</span>
+            </button>
+
+            <div class="w-px h-6 mx-1" style="background: #808080;"></div>
+
+            <!-- Janelas abertas vão aparecer aqui -->
+            <div id="taskbar-windows" class="flex gap-1 flex-1"></div>
+
+            <!-- Relógio -->
+            <div id="win95-clock"
+                class="px-2 h-8 flex items-center text-sm font-body ml-auto"
+                style="border-top: 2px solid #808080;
+                        border-left: 2px solid #808080;
+                        border-right: 2px solid #ffffff;
+                        border-bottom: 2px solid #ffffff;">
+            00:00
+            </div>
+
+        </div>
+
+        </section>
+
+        <!-- JS -->
+        <script src="js/main.js"></script>
+        <script src="js/era-system.js"></script>
+        <script src="js/win95.js"></script>
+
+    
+        <footer class="w-full flex justify-between px-8 py-4 items-center
+               bg-black border-t border-tertiary/20
+               shadow-[0_-5px_20px_rgba(255,85,241,0.08)]">
+        <div class="text-tertiary font-mono text-[10px] uppercase">
+            © 2026 LEONARDO_FREITAS_SANTOS
+        </div>
+        <div class="flex gap-6 font-mono text-[10px] uppercase text-tertiary/40">
+            <a href="https://github.com/seu-usuario" target="_blank"
+            class="hover:text-tertiary">GITHUB</a>
+            <a href="https://linkedin.com/in/seu-perfil" target="_blank"
+            class="hover:text-tertiary">LINKEDIN</a>
+            <a href="mailto:seu@email.com"
+            class="hover:text-tertiary">EMAIL</a>
+        </div>
+        </footer>
     </body>
 </html>

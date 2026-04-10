@@ -73,3 +73,277 @@
   animation-delay: 4s;
 }
 
+/* CRT overlay - scanlines na tela toda*/
+.crt-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%),
+    linear-gradient(90deg, rgba(255,0,0,0.04), rgba(0,255,0,0.02), rgba(0,0,255,0.04));
+  background-size: 100% 4px, 3px 100%;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+/* 2. CRT Flicker */
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.98; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.97; }
+  97%       { opacity: 1; }
+}
+.crt-screen { animation: crt-flicker 8s infinite; }
+
+/* 3. Phosphor Glow */
+.crt-glow    { text-shadow: 0 0 8px rgba(156,255,147,0.6); }
+.crt-glow-sm { text-shadow: 0 0 4px rgba(156,255,147,0.4); }
+
+/* 4. Scanline beam */
+@keyframes scan {
+  0%   { top: -100px; }
+  100% { top: 110%; }
+}
+.scanline-beam {
+  position: absolute;
+  left: 0; width: 100%; height: 80px;
+  background: linear-gradient(0deg,
+    transparent 0%,
+    rgba(156,255,147,0.04) 50%,
+    transparent 100%);
+  animation: scan 6s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 5. Cursor piscando */
+@keyframes blink { 50% { opacity: 0; } }
+.cursor-blink { animation: blink 1s step-start infinite; }
+
+/* 6. Botão terminal */
+.btn-terminal {
+  color: #9cff93;
+  background: transparent;
+  border: 1px solid rgba(156,255,147,0.4);
+  padding: 0.4rem 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+.btn-terminal::before { content: "[ "; }
+.btn-terminal::after  { content: " ]"; }
+.btn-terminal:hover {
+  background: #9cff93;
+  color: #006413;
+}
+
+/* 7. Scrollbar verde */
+body::-webkit-scrollbar       { width: 6px; }
+body::-webkit-scrollbar-track { background: #000; }
+body::-webkit-scrollbar-thumb { background: #9cff93; }
+
+/* ── FULLPAGE SYSTEM ── */
+#glitch-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+#glitch-overlay.fade-in  { opacity: 1; }
+#glitch-overlay.fade-out { opacity: 0; }
+
+.era-slide {
+  position: fixed;
+  top: 0;
+  left: 4rem;        /* mesmo que ml-16 */
+  width: calc(100% - 4rem);
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .era-slide {
+    left: 15rem;     /* mesmo que ml-60 */
+    width: calc(100% - 15rem);
+  }
+}
+
+.era-slide.active {
+  opacity: 1;
+  pointer-events: all;
+  z-index: 10;
+  visibility: visible;
+}
+
+/* ══════════════════════════════════════
+   WIN95 WINDOW SYSTEM
+══════════════════════════════════════ */
+
+.win95-window {
+  position: absolute;
+  min-width: 200px;
+  min-height: 100px;
+  /* Bevel externo — efeito 3D Win95 */
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-shadow: 1px 1px 0 #000;
+  background: #c0c0c0;
+  z-index: 100;
+}
+
+/* Título bar azul */
+.win95-titlebar {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: grab;
+  user-select: none;
+}
+
+.win95-titlebar:active {
+  cursor: grabbing;
+}
+
+/* Título bar vermelha — só no System Error */
+.win95-titlebar-error {
+  background: linear-gradient(90deg, #800000, #c00000) !important;
+}
+
+/* Botões da janela (minimizar, maximizar, fechar) */
+.win95-btn {
+  width: 16px;
+  height: 14px;
+  font-size: 9px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c0c0c0;
+  color: #000;
+  border-top:    1px solid #ffffff;
+  border-left:   1px solid #ffffff;
+  border-right:  1px solid #808080;
+  border-bottom: 1px solid #808080;
+  cursor: pointer;
+}
+
+.win95-btn:active {
+  border-top:    1px solid #808080;
+  border-left:   1px solid #808080;
+  border-right:  1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+}
+
+.win95-btn-close:hover {
+  background: #ff0000;
+  color: #fff;
+}
+
+/* Área de conteúdo */
+.win95-content {
+  padding: 8px;
+  background: #c0c0c0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+
+/* Linha de arquivo na janela de projetos */
+.win95-file-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.win95-file-row:hover {
+  background: #000080;
+  color: #fff !important;
+}
+
+.win95-file-row:hover * {
+  color: #fff !important;
+}
+
+/* Botões de ação (OK, Cancel) */
+.win95-action-btn {
+  padding: 3px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  background: #c0c0c0;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  cursor: pointer;
+  min-width: 60px;
+}
+
+.win95-action-btn:active {
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+/* Janela ativa vs inativa */
+.win95-window.focused .win95-titlebar {
+  background: linear-gradient(90deg, #000080, #1084d0);
+}
+
+.win95-window:not(.focused) .win95-titlebar {
+  background: #808080;
+}
+
+.win95-window[data-maximized="true"] {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Item na taskbar */
+.taskbar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  height: 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  background: #c0c0c0;
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  cursor: pointer;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskbar-item:hover {
+  background: #d4d0c8;
+}
+
