@@ -13,8 +13,6 @@ function openWindow(id) {
     focusWindow(win);
     addToTaskbar(id);
 
-    // Inicializa o DOOM só quando a janela abrir
-    if (id === 'win-snake') initDoom();
 }
 
 // ── FECHAR JANELA ─────────────────────
