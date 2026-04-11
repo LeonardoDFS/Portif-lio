@@ -347,5 +347,37 @@ body::-webkit-scrollbar-thumb { background: #9cff93; }
   background: #d4d0c8;
 }
 
+/* DOOM */
+.win95-content.doom {
+  padding: 0;
+  background: #000;
+  overflow: hidden;
+  height: 100%;
+}
 
+.win95-content.doom iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: #000;
+}
 
+.win95-window.doom {
+  display: flex;
+  flex-direction: column;
+}
+
+.win95-window.doom .win95-content {
+  flex: 1;
+}
+
+#win-snake {
+  display: flex;
+  flex-direction: column;
+}
+
+#win-snake .win95-content {
+  flex: 1;
+  overflow: hidden;
+}
