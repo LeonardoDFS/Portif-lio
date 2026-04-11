@@ -13,57 +13,43 @@
       overflow: hidden;
     }
 
-    .wrap {
+    #game {
       width: 100%;
       height: 100%;
-      position: relative;
-      background: #000;
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-      background: #000;
-    }
-
-    .hint {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      z-index: 10;
-      background: rgba(0, 0, 0, 0.7);
+    .loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #fff;
-      font: 12px/1.2 Arial, sans-serif;
-      padding: 8px 10px;
-      border-radius: 6px;
+      font-family: Arial, sans-serif;
+      background: #000;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <iframe
-      id="doomFrame"
-      src="https://dos.zone/player/?bundleUrl=https://cdn.dos.zone/custom/dos/doom.jsdos?anonymous=1"
-      allowfullscreen
-      loading="eager"
-      referrerpolicy="no-referrer"
-      title="DOOM"
-    ></iframe>
+  <div id="game"></div>
+  <div class="loading" id="loading">Carregando DOOM...</div>
 
-    <div class="hint">Clique no jogo para ativar o teclado</div>
-  </div>
-
+  <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
   <script>
-    const iframe = document.getElementById("doomFrame");
+    window.addEventListener("load", async () => {
+      try {
+        const ci = await Dos(document.getElementById("game"), {
+          url: "./assets/doom/doom.jsdos",
+          kiosk: true
+        });
 
-    window.addEventListener("load", () => {
-      setTimeout(() => iframe.focus(), 800);
-    });
-
-    iframe.addEventListener("load", () => {
-      setTimeout(() => iframe.focus(), 500);
+        console.log("js-dos carregado:", ci);
+        document.getElementById("loading").style.display = "none";
+      } catch (err) {
+        console.error("Erro ao iniciar DOOM:", err);
+        document.getElementById("loading").textContent = "Erro ao carregar o jogo";
+      }
     });
   </script>
 </body>
