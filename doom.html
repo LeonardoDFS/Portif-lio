@@ -5,31 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DOOM</title>
   <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      overflow: hidden;
-    }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+      #dos {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
 
-    #game {
-      width: 100%;
-      height: 100%;
-    }
-
-    .loading {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      background: #000;
-      z-index: 10;
-    }
-  </style>
+      /* ADICIONAR ISSO AQUI */
+      #dos canvas,
+      #dos .js-dos,
+      #dos .js-dos-canvas {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain;
+      }
+    </style>
 </head>
 <body>
   <div id="game"></div>
