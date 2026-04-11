@@ -193,3 +193,11 @@ observer.observe(document.getElementById('era-02'), {
   attributes: true,
   attributeFilter: ['class']
 });
+
+function startDoom() {
+    const overlay = document.getElementById('doom-overlay');
+    const frame   = document.getElementById('doom-frame');
+    if (overlay) overlay.style.display = 'none';
+    // Força o foco no iframe para o teclado funcionar
+    if (frame) frame.focus();
+}
