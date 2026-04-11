@@ -2,26 +2,67 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
   <title>DOOM</title>
-  <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
-      #dos {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
 
-      /* ADICIONAR ISSO AQUI */
-      #dos canvas,
-      #dos .js-dos,
-      #dos .js-dos-canvas {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: contain;
-      }
-    </style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #game {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background: #000;
+      z-index: 10;
+      font-size: 14px;
+    }
+
+    #game canvas,
+    #game .js-dos,
+    #game .js-dos-canvas,
+    #game .dosbox-container,
+    #game .dosbox-overlay {
+      max-width: 100% !important;
+      max-height: 100% !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain;
+    }
+
+    canvas {
+      image-rendering: pixelated;
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <div id="game"></div>
@@ -33,7 +74,8 @@
       try {
         const ci = await Dos(document.getElementById("game"), {
           url: "./assets/doom/doom.jsdos",
-          kiosk: true
+          kiosk: true,
+          scale: 1,
         });
 
         console.log("js-dos carregado:", ci);
