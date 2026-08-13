@@ -6,6 +6,7 @@ const BOOT_INTERVAL  = 250;
 const BOOT_PAUSE     = 300;
 const SKILL_INTERVAL = 150;
 const FILL_DURATION  = 700;
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ─── TYPEWRITER ────────────────────────────────────────────────
 function typeWriter(el, text, speed, onDone) {
@@ -62,22 +63,22 @@ function runSkills() {
       const label   = row.querySelector('.boot-line');
       const fill    = row.querySelector('.skill-fill');
       const counter = row.querySelector('.counter');
+      const target  = parseInt(counter.dataset.target, 10);
 
       // Label aparece
       label.classList.add('visible');
 
-      // Barra enche — reinicia a animação do zero
-      fill.style.animationDuration = FILL_DURATION + 'ms';
-      fill.style.animationDelay    = '0ms';
-      fill.style.animationName     = 'none';
+      // Define a largura final no próprio elemento para ela persistir
+      fill.style.animation = 'none';
+      fill.style.transition = `width ${FILL_DURATION}ms ease`;
+      fill.style.width = '0%';
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          fill.style.animationName = 'fillBar';
+          fill.style.width = `${target}%`;
         });
       });
 
       // Contador sobe junto
-      const target    = parseInt(counter.dataset.target);
       const steps     = 40;
       const increment = target / steps;
       const interval  = FILL_DURATION / steps;
@@ -97,8 +98,28 @@ function runSkills() {
 }
 
 // ─── TIMELINE PRINCIPAL ────────────────────────────────────────
-runTypewriters(() => {
-  runBootLog(() => {
-    runSkills();
+function revealProfileImmediately() {
+  document.querySelectorAll('.typewriter').forEach(el => {
+    el.textContent = el.dataset.text || '';
   });
-});
+
+  document.querySelectorAll('.boot-line').forEach(el => el.classList.add('visible'));
+
+  document.querySelectorAll('#skill-matrix .skill-row').forEach(row => {
+    const counter = row.querySelector('.counter');
+    const fill = row.querySelector('.skill-fill');
+    const target = parseInt(counter.dataset.target, 10);
+    counter.textContent = `${target}%`;
+    fill.style.width = `${target}%`;
+  });
+}
+
+if (REDUCED_MOTION) {
+  revealProfileImmediately();
+} else {
+  runTypewriters(() => {
+    runBootLog(() => {
+      runSkills();
+    });
+  });
+}

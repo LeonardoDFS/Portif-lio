@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>LFS.DEV // CHRONOS_OS</title>
+    <title>Leonardo Freitas // CHRONOS_OS</title>
+    <meta name="description" content="Portfólio de Leonardo Freitas dos Santos — TI, suporte, infraestrutura, hardware, automação e desenvolvimento."/>
+    <meta name="theme-color" content="#0e0e0e"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Leonardo Freitas // CHRONOS_OS"/>
+    <meta property="og:description" content="Uma linha do tempo interativa entre suporte, infraestrutura, hardware e desenvolvimento."/>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
 
     <!-- TailWind CSS via CDN-->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- DOOM -->
-    <script src="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.js"></script>
-    <link href="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.css" rel="stylesheet"/>
 
     <script>
     tailwind.config = {
@@ -66,6 +68,8 @@
         <div class="loading-text" id="loading-text">LOADING ERA_01...</div>
         </div>
 
+        <a href="#portfolio-main" class="skip-link">Pular para o conteúdo</a>
+
         <header class="fixed top-0 left-0 w-full z-50
                        flex justify-between items-center
                        px-6 py-4
@@ -74,65 +78,60 @@
                        shadow-[0_0_20px_rgba(156,255,147,0.15)]">
 
                         
-            <div class="text-xl font-bold tracking-tighter text-primary">
-                CHRONOS_OS
+            <div class="text-base md:text-xl font-bold tracking-tighter text-primary whitespace-nowrap">
+                CHRONOS_OS <span class="text-primary/30 text-[9px] md:text-[10px] tracking-widest">// LFS</span>
             </div>
 
             <!-- Links de navegação -->
-            <nav class="flex items-center gap-8 text-sm text-primary/50 uppercase tracking-widest">
+            <nav aria-label="Navegação principal" class="hidden lg:flex items-center gap-6 text-xs text-primary/50 uppercase tracking-widest">
                 <a href="#era-01" class="hover:text-primary px-2 py-1">TERMINAL</a>
                 <a href="#era-02" class="hover:text-primary px-2 py-1">DESKTOP</a>
                 <a href="#era-03" class="hover:text-primary px-2 py-1">Y2K</a>
                 <a href="#era-04" class="hover:text-primary px-2 py-1">GLITCH</a>
             </nav>
 
-            <!-- Ícones a direita-->
-            <div class ="flex items-center gap-4 text-primary/60">
-                <span class="material-symbols-outlined cursor-pointer hover:text-primary">
-                    settings_ethernet
-                </span>
-                <span class="material-symbols-outlined cursor-pointer hover:text-primary">
-                    terminal
-                </span>
+            <div class="flex items-center gap-2 text-primary/60 font-mono text-[9px] md:text-[10px] uppercase tracking-widest">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span id="current-era-label">ERA_01 / TERMINAL</span>
             </div>
         </header>
                     
-        <aside class="fixed left-0 top-0 h-full z-40
-                      flex flex-col pt-24
-                      w-16 md:w-60
+        <aside aria-label="Linha do tempo" class="fixed left-0 top-0 h-full z-40
+                      hidden md:flex flex-col pt-24
+                      w-60
                       bg-surface border-r border-primary/10">
             
             <!-- Titulo da sidebar -->
              <div class="px-4 mb-8 hidden md:block">
                 <div class="text-primary font-bold text-sm tracking-tight">TIMELINE_IDX</div>
-                <div class="text-primary/40 text-[10px] tracking-widest uppercase">V.2026.BETA</div>
+                 <div class="text-primary/40 text-[10px] tracking-widest uppercase">V.2026.RC_01</div>
             </div>
 
             <!-- Links das eras -->
             <nav class="flex-1 space-y-1">
 
-            <a href="#era-01"
+            <a href="#era-01" data-era-index="0"
                 class="flex items-center gap-3 px-4 py-3
                         bg-primary/10 text-primary border-l-2 border-primary">
                 <span class="material-symbols-outlined text-base">memory</span>
                 <span class="text-[11px] font-medium hidden md:block">ERA_01</span>
             </a>
 
-            <a href="#era-02"
+            <a href="#era-02" data-era-index="1"
                 class="flex items-center gap-3 px-4 py-3
                         text-primary/30 hover:text-primary hover:bg-primary/5">
                 <span class="material-symbols-outlined text-base">desktop_windows</span>
                 <span class="text-[11px] font-medium hidden md:block">ERA_02</span>
             </a>
 
-            <a href="#era-03"
+            <a href="#era-03" data-era-index="2"
                 class="flex items-center gap-3 px-4 py-3
                         text-primary/30 hover:text-primary hover:bg-primary/5">
                 <span class="material-symbols-outlined text-base">language</span>
                 <span class="text-[11px] font-medium hidden md:block">ERA_03</span>
             </a>
 
-            <a href="#era-04"
+            <a href="#era-04" data-era-index="3"
                 class="flex items-center gap-3 px-4 py-3
                         text-primary/30 hover:text-primary hover:bg-primary/5">
                 <span class="material-symbols-outlined text-base">fluorescent</span>
@@ -143,12 +142,12 @@
 
             <!-- Links de rodapé da sidebar -->
             <div class="p-4 space-y-3 border-t border-primary/10">
-            <a href="https://github.com/seu-usuario" target="_blank"
+            <a href="https://github.com/LeonardoDFS" target="_blank" rel="noopener noreferrer"
                 class="flex items-center gap-3 text-primary/30 hover:text-primary">
                 <span class="material-symbols-outlined text-base">code</span>
                 <span class="text-[11px] hidden md:block">GITHUB</span>
             </a>
-            <a href="mailto:seu@email.com"
+            <a href="mailto:leonardofreitas135@hotmail.com"
                 class="flex items-center gap-3 text-primary/30 hover:text-primary">
                 <span class="material-symbols-outlined text-base">mail</span>
                 <span class="text-[11px] hidden md:block">CONTATO</span>
@@ -158,7 +157,8 @@
         
         </aside>
 
-        <section id="era-01" class="era-slide bg-surface">
+        <main id="portfolio-main">
+        <section id="era-01" class="era-slide bg-surface" aria-labelledby="era-01-title">
 
             <div class="pt-20 pb-8 px-4 md:px-10 h-full overflow-y-auto"> 
 
@@ -191,23 +191,23 @@
                                         // SYSTEM_PROFILE_v2026
                                     </div>
 
-                                    <h1 class="text-2xl md:text-3xl font-black font-headline tracking-tighter uppercase">
+                                    <h1 id="era-01-title" class="text-2xl md:text-3xl font-black font-headline tracking-tighter uppercase">
                                         OPERATOR_ID: LEONARDO_D._SANTOS
                                     </h1>
 
                                     <div class="grid grid-cols-2 gap-x-8 gap-y-1 text-xs max-w-md font-mono uppercase mt-2">
                                         <span class="text-primary/50">STATUS</span>
-                                        <span class="text-primary typewriter" data-text="ATIVO — ÚLTIMO ANO ENG. COMP."></span>
+                                        <span class="text-primary typewriter" data-text="ATIVO — ENG. COMP. 2022/2027"></span>
 
 
                                         <span class="text-primary/50">CARGO</span>
-                                        <span class="text-primary typewriter" data-text="BACKEND_ENGINEER"></span>
+                                        <span class="text-primary typewriter" data-text="TI / SUPORTE / DEV"></span>
 
                                         <span class="text-primary/50">STACK</span>
                                         <span class="text-primary typewriter" data-text="TS / NESTJS / PRISMA / JAVA / C#"> </span>
 
                                         <span class="text-primary/50">LOCALIZAÇÃO</span>
-                                        <span class="text-primary typewriter" data-text="TERRAS_MÉDIAS"></span>
+                                        <span class="text-primary typewriter" data-text="BANDEIRANTES_PR"></span>
                                     </div>
                                 </div>
                             </div>
@@ -228,17 +228,17 @@
 
                                     <div class="flex gap-3 boot-line" >
                                     <span class="text-primary/30">[0.012]</span>
-                                    <span class="text-primary/80 uppercase">FORMANDO EM ENG. COMPUTAÇÃO - FOCO EM SISTEMAS ROBUSTOS</span>
+                                    <span class="text-primary/80 uppercase">ENG. DA COMPUTAÇÃO — SUPORTE, INFRAESTRUTURA E DESENVOLVIMENTO</span>
                                     </div>
 
                                     <div class="flex gap-3 boot-line" >
                                     <span class="text-primary/30">[0.034]</span>
-                                    <span class="text-primary/80 uppercase">EXPERIÊNCIA: APIS REST, MICROSERVIÇOS, ORM COM PRISMA</span>
+                                    <span class="text-primary/80 uppercase">EXPERIÊNCIA: TROUBLESHOOTING, AUTOMAÇÃO, APIS E DOCUMENTAÇÃO TÉCNICA</span>
                                     </div>
 
                                     <div class="flex gap-3 boot-line" >
                                     <span class="text-primary/30">[0.055]</span>
-                                    <span class="text-primary/80 uppercase">INTERESSES: GERAÇÃO PROCEDURAL + HARDWARE + EMBARCADOS</span>
+                                    <span class="text-primary/80 uppercase">INTERESSES: HARDWARE + REDES + IOT + SISTEMAS ROBUSTOS</span>
                                     </div>
 
                                     <div class="flex gap-3 boot-line">
@@ -343,8 +343,10 @@
         </section>
 
         <!-- ERA 02 — Desktop Win95 -->
-        <section id="era-02" class="era-slide h-screen flex flex-col"
+        <section id="era-02" class="era-slide h-screen flex flex-col" aria-labelledby="era-02-title"
                 style="background-color: #008080;">
+
+        <h2 id="era-02-title" class="sr-only">Era 02 — Desktop e projetos de desenvolvimento</h2>
 
         <!-- Área do desktop — onde as janelas vão flutuar -->
         <div id="desktop-02" class="flex-1 relative pt-16 overflow-hidden">
@@ -352,35 +354,35 @@
             <!-- Ícones do desktop -->
             <div class="flex flex-col gap-6 p-4 w-24">
 
-                <div class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
-                    onclick="openWindow('win-projects')">
+                <button type="button" class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
+                    onclick="openWindow('win-projects')" aria-label="Abrir projetos">
                     <span class="material-symbols-outlined text-4xl text-white"
                         style="font-variation-settings: 'FILL' 1">folder</span>
                     <span class="text-white text-[11px] text-center font-body px-1"
                         style="text-shadow: 1px 1px #000;">
                     C:\PROJECTS
                     </span>
-                </div>
+                </button>
 
-                <div class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
-                    onclick="openWindow('win-snake')">
+                <button type="button" class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
+                    onclick="openWindow('win-snake')" aria-label="Abrir DOOM">
                     <span class="material-symbols-outlined text-4xl text-white"
                         style="font-variation-settings: 'FILL' 1">sports_esports</span>
                     <span class="text-white text-[11px] text-center font-body px-1"
                         style="text-shadow: 1px 1px #000;">
                     DOOM.EXE
                     </span>
-                </div>
+                </button>
 
-                <div class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
-                    onclick="openWindow('win-about')">
+                <button type="button" class="desktop-icon flex flex-col items-center gap-1 cursor-pointer w-20"
+                    onclick="openWindow('win-about')" aria-label="Abrir apresentação">
                     <span class="material-symbols-outlined text-4xl text-white"
                         style="font-variation-settings: 'FILL' 1">person</span>
                     <span class="text-white text-[11px] text-center font-body px-1"
                         style="text-shadow: 1px 1px #000;">
                     ABOUT.TXT
                     </span>
-                </div>
+                </button>
 
             </div>
 
@@ -398,9 +400,9 @@
                 <span>C:\PROJECTS\ERA_02</span>
                 </div>
                 <div class="flex gap-1">
-                <button class="win95-btn" onclick="minimizeWindow('win-projects')">─</button>
-                <button class="win95-btn" onclick="maximizeWindow('win-projects')">□</button>
-                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-projects')">✕</button>
+                <button class="win95-btn" onclick="minimizeWindow('win-projects')" aria-label="Minimizar projetos">─</button>
+                <button class="win95-btn" onclick="maximizeWindow('win-projects')" aria-label="Maximizar projetos">□</button>
+                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-projects')" aria-label="Fechar projetos">✕</button>
                 </div>
             </div>
 
@@ -472,23 +474,28 @@
                 <span>ABOUT.TXT — Notepad</span>
                 </div>
                 <div class="flex gap-1">
-                <button class="win95-btn" onclick="minimizeWindow('win-about')">─</button>
-                <button class="win95-btn" onclick="maximizeWindow('win-about')">□</button>
-                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-about')">✕</button>
+                <button class="win95-btn" onclick="minimizeWindow('win-about')" aria-label="Minimizar apresentação">─</button>
+                <button class="win95-btn" onclick="maximizeWindow('win-about')" aria-label="Maximizar apresentação">□</button>
+                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-about')" aria-label="Fechar apresentação">✕</button>
                 </div>
             </div>
 
             <div class="win95-content font-mono text-sm" style="color:#000; white-space: pre-wrap;">
             LEONARDO FREITAS DOS SANTOS
             ================================
-            Estudante de Eng. Computação (UTFPR)
-            Foco: Backend + Sistemas Robustos
+            Engenharia da Computação — UTFPR (2022–2027)
+            Foco: TI + Suporte + Infraestrutura + Desenvolvimento
 
             STACK:
             - TypeScript / NestJS / Node.js
             - Prisma ORM / PostgreSQL
             - C / Microcontroladores
             - Python
+
+            EXPERIÊNCIA:
+            - Dorai — Gestão de TI e Desenvolvimento
+            - Automação de fluxos com Power Platform
+            - Infraestrutura e monitoramento térmico IoT
 
             INTERESSES:
             - Geração Procedural
@@ -512,7 +519,7 @@
                 <span>System Error</span>
                 </div>
                 <div class="flex gap-1">
-                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-error')">✕</button>
+                <button class="win95-btn win95-btn-close" onclick="closeWindow('win-error')" aria-label="Fechar erro">✕</button>
                 </div>
             </div>
 
@@ -535,8 +542,8 @@
             <!-- ═══════════════════════════════════════
                 JANELA: SNAKE / FREEDOOM (placeholder)
             ═══════════════════════════════════════ -->
-            <div id="win-snake" class="win95-window"
-                    style="display:none; top: 50px; left: 150px; width: 760px;">
+            <div id="win-snake" class="win95-window doom-window"
+                    style="display:none; top: 72px; left: 24px; width: min(1200px, calc(100% - 48px));">
 
                     <div class="win95-titlebar" data-window="win-snake">
                         <div class="flex items-center gap-2">
@@ -545,14 +552,14 @@
                             <span>FREEDOOM.EXE</span>
                         </div>
                         <div class="flex gap-1">
-                            <button class="win95-btn" onclick="minimizeWindow('win-snake')">─</button>
-                            <button class="win95-btn" onclick="maximizeWindow('win-snake')">□</button>
-                            <button class="win95-btn win95-btn-close" onclick="closeWindow('win-snake')">✕</button>
+                            <button class="win95-btn" onclick="minimizeWindow('win-snake')" aria-label="Minimizar DOOM">─</button>
+                            <button class="win95-btn" onclick="maximizeWindow('win-snake')" aria-label="Maximizar DOOM">□</button>
+                            <button class="win95-btn win95-btn-close" onclick="closeWindow('win-snake')" aria-label="Fechar DOOM">✕</button>
                         </div>
                     </div>
 
                     <div class="win95-content doom" style="position:relative; flex:1;">
-                        <div id="doom-overlay" onclick="startDoom()"
+                        <button type="button" id="doom-overlay" onclick="startDoom()" aria-label="Iniciar DOOM"
                             style="position:absolute; inset:0; z-index:10; background:#000;
                                     display:flex; flex-direction:column; align-items:center;
                                     justify-content:center; cursor:pointer; gap:12px;">
@@ -569,8 +576,8 @@
                                         opacity:0.4; letter-spacing:1px;">
                                 (pressione ENTER no menu do jogo)
                             </span>
-                        </div>
-                        <iframe id="doom-frame" src="doom.html"
+                        </button>
+                        <iframe id="doom-frame" src="about:blank" data-src="doom.html" loading="lazy" title="DOOM executado no js-dos"
                                 style="width:100%; height:100%; border:none; display:block;"></iframe>
                     </div>
             
@@ -585,7 +592,7 @@
                     box-shadow: inset 0 1px 0 #dfdfdf;">
 
             <!-- Botão Start -->
-            <button class="flex items-center gap-2 px-2 h-8 font-bold text-sm font-body"
+            <button type="button" onclick="goToEra(2)" aria-label="Avançar para a era Y2K" class="flex items-center gap-2 px-2 h-8 font-bold text-sm font-body"
                     style="background: #c0c0c0;
                         border-top: 2px solid #ffffff;
                         border-left: 2px solid #ffffff;
@@ -622,26 +629,193 @@
 
         </section>
 
+        <!-- ERA 03 — web pessoal / anos 2000 -->
+        <section id="era-03" class="era-slide y2k-era" aria-labelledby="era-03-title">
+            <div class="era-scroll y2k-scroll">
+                <div class="y2k-shell">
+                    <div class="browser-chrome" aria-hidden="true">
+                        <div class="browser-title"><span class="browser-logo">e</span> Leonardo Online — Microsoft Internet Explorer</div>
+                        <div class="browser-actions"><span>—</span><span>□</span><span>×</span></div>
+                    </div>
+                    <div class="browser-toolbar" aria-hidden="true">
+                        <span>← Voltar</span><span>→ Avançar</span><span>⟳ Atualizar</span>
+                        <div class="browser-address">Endereço: https://chronos.local/leonardo_online.htm</div>
+                    </div>
+
+                    <div class="y2k-page">
+                        <div id="y2k-home">
+                        <div class="y2k-banner">
+                            <p>• BEM-VINDO À MINHA PÁGINA PESSOAL •</p>
+                            <h2 id="era-03-title">LEONARDO_ONLINE<span>.htm</span></h2>
+                            <p class="y2k-subtitle">TI • HARDWARE • AUTOMAÇÃO • DESENVOLVIMENTO</p>
+                        </div>
+
+                        <div class="y2k-marquee" aria-label="Áreas de conhecimento">
+                            <div>★ WINDOWS ★ REDES ★ POWER PLATFORM ★ GIT/GITHUB ★ HARDWARE ★ IOT ★ DOCUMENTAÇÃO ★ TROUBLESHOOTING ★</div>
+                        </div>
+
+                        <div class="y2k-grid">
+                            <aside class="y2k-sidebar">
+                                <div class="y2k-avatar" aria-hidden="true">LFS</div>
+                                <h3>WEBMASTER</h3>
+                                <p>Leonardo Freitas</p>
+                                <div class="y2k-counter">VISITANTE Nº <strong>002026</strong></div>
+                                <div class="y2k-links">
+                                    <a href="#experiencia-03">[ Experiência ]</a>
+                                    <a href="#projetos-03">[ Projetos ]</a>
+                                    <a href="#era-04">[ Contato ]</a>
+                                </div>
+                                <p class="best-viewed">Melhor visualizado com curiosidade e café ☕</p>
+                            </aside>
+
+                            <div class="y2k-content">
+                                <section id="experiencia-03" class="y2k-panel">
+                                    <h3>◆ EXPERIÊNCIA.LOG</h3>
+                                    <article class="timeline-entry">
+                                        <time>JAN — MAI / 2026</time>
+                                        <div><strong>Dorai — Gestão de TI e Desenvolvimento</strong><p>Infraestrutura tecnológica, configuração de ambientes, monitoramento de acessos, suporte a integrações e documentação de processos.</p></div>
+                                    </article>
+                                    <article class="timeline-entry">
+                                        <time>2022 — ATUAL</time>
+                                        <div><strong>Diretório Acadêmico da Computação</strong><p>Gestão administrativa e financeira, controle de inventário, organização de ativos e prestação de contas.</p></div>
+                                    </article>
+                                </section>
+
+                                <section id="projetos-03" class="y2k-panel">
+                                    <h3>◆ PROJETOS_2026.ZIP</h3>
+                                    <div class="y2k-projects">
+                                        <button type="button" class="y2k-project-card" onclick="openY2KProject('automation')">
+                                            <span class="material-symbols-outlined" aria-hidden="true">account_tree</span>
+                                            <h4>Automação de Fluxos</h4>
+                                            <p>Suporte em Power Platform, validação de regras de negócio e documentação de integrações corporativas.</p>
+                                            <small>POWER PLATFORM / PROCESSOS / SUPORTE</small>
+                                            <strong>ABRIR PROJETO →</strong>
+                                        </button>
+                                        <button type="button" class="y2k-project-card" onclick="openY2KProject('iot')">
+                                            <span class="material-symbols-outlined" aria-hidden="true">device_thermostat</span>
+                                            <h4>Monitoramento Térmico IoT</h4>
+                                            <p>Microcontroladores e sensores aplicados a racks e data centers, com diagnóstico de hardware, software e conectividade.</p>
+                                            <small>IOT / HARDWARE / REDES</small>
+                                            <strong>ABRIR PROJETO →</strong>
+                                        </button>
+                                        <button type="button" class="y2k-project-card unity-project-card" onclick="openY2KProject('unity-horror')">
+                                            <span class="material-symbols-outlined" aria-hidden="true">sports_esports</span>
+                                            <h4>Game de Terror</h4>
+                                            <p>Projeto autoral desenvolvido em Unity. Página preparada para receber história, mecânicas, imagens e build.</p>
+                                            <small>UNITY / C# / GAME DEV</small>
+                                            <strong>VER ARQUIVO →</strong>
+                                        </button>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        </div>
+
+                        <section id="y2k-project-view" class="y2k-project-view" hidden tabindex="-1" aria-live="polite">
+                            <div class="project-view-toolbar">
+                                <button type="button" onclick="closeY2KProject()">← VOLTAR PARA PROJETOS</button>
+                                <span id="project-file-name">PROJECT_FILE.HTM</span>
+                            </div>
+
+                            <div class="project-detail-hero">
+                                <p id="project-category">CASE STUDY</p>
+                                <h2 id="project-title">Projeto</h2>
+                                <p id="project-summary"></p>
+                            </div>
+
+                            <div id="project-gallery" class="project-gallery" aria-label="Galeria do projeto"></div>
+
+                            <div class="project-detail-grid">
+                                <aside>
+                                    <div class="project-facts">
+                                        <h3>PROPRIEDADES.EXE</h3>
+                                        <dl id="project-facts"></dl>
+                                    </div>
+                                    <div class="project-tech">
+                                        <h3>TECNOLOGIAS</h3>
+                                        <div id="project-tech"></div>
+                                    </div>
+                                </aside>
+                                <div class="project-story">
+                                    <section><h3>01 // CONTEXTO</h3><p id="project-context"></p></section>
+                                    <section><h3>02 // O QUE FOI FEITO</h3><p id="project-solution"></p></section>
+                                    <section><h3>03 // MINHA PARTICIPAÇÃO</h3><p id="project-role"></p></section>
+                                    <div id="project-note" class="project-note" hidden></div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERA 04 — presente -->
+        <section id="era-04" class="era-slide now-era" aria-labelledby="era-04-title">
+            <div class="era-scroll now-scroll">
+                <div class="now-noise" aria-hidden="true"></div>
+                <div class="now-shell">
+                    <div class="now-kicker"><span></span> ERA_04 // PRESENT_DAY // DISPONÍVEL PARA OPORTUNIDADES</div>
+
+                    <div class="now-hero">
+                        <div>
+                            <p class="now-eyebrow">LEONARDO FREITAS DOS SANTOS</p>
+                            <h2 id="era-04-title">TECNOLOGIA QUE<br/><em>CONTINUA FUNCIONANDO.</em></h2>
+                            <p class="now-lead">Uno suporte, infraestrutura, hardware e desenvolvimento para diagnosticar problemas, organizar processos e construir soluções confiáveis.</p>
+                            <div class="now-actions">
+                                <a href="mailto:leonardofreitas135@hotmail.com" class="now-btn now-btn-primary">INICIAR CONVERSA <span>↗</span></a>
+                                <a href="https://github.com/LeonardoDFS" target="_blank" rel="noopener noreferrer" class="now-btn">VER GITHUB <span>↗</span></a>
+                                <a href="assets/docs/curriculo-leonardo-freitas.pdf" target="_blank" rel="noopener noreferrer" class="now-btn">ABRIR CURRÍCULO <span>↓</span></a>
+                            </div>
+                        </div>
+                        <div class="now-status-card">
+                            <div class="now-orbit" aria-hidden="true"><span>LFS</span></div>
+                            <dl>
+                                <div><dt>BASE</dt><dd>Bandeirantes, PR</dd></div>
+                                <div><dt>FORMAÇÃO</dt><dd>Eng. Computação — UTFPR</dd></div>
+                                <div><dt>PERÍODO</dt><dd>2022 — 2027</dd></div>
+                                <div><dt>INGLÊS</dt><dd>Intermediário</dd></div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="now-divider"><span>CAPABILITIES</span><span>04 MODULES ONLINE</span></div>
+
+                    <div class="capability-grid">
+                        <article><span>01</span><div class="material-symbols-outlined" aria-hidden="true">support_agent</div><h3>Suporte técnico</h3><p>Diagnóstico de hardware e software, atendimento presencial ou remoto e documentação de soluções.</p></article>
+                        <article><span>02</span><div class="material-symbols-outlined" aria-hidden="true">lan</div><h3>Infraestrutura</h3><p>Windows, redes, periféricos, inventário, gestão de ativos e monitoramento de acessos.</p></article>
+                        <article><span>03</span><div class="material-symbols-outlined" aria-hidden="true">memory</div><h3>Hardware & IoT</h3><p>Montagem, manutenção, microcontroladores, sensores e diagnóstico de conectividade.</p></article>
+                        <article><span>04</span><div class="material-symbols-outlined" aria-hidden="true">code</div><h3>Automação & Dev</h3><p>Power Platform, Git/GitHub, scripts, TypeScript, Node.js e construção de sistemas backend.</p></article>
+                    </div>
+
+                    <div class="contact-terminal">
+                        <div><span class="terminal-prompt">leonardo@chronos:~$</span> contact --open</div>
+                        <div class="contact-links">
+                            <a href="mailto:leonardofreitas135@hotmail.com">leonardofreitas135@hotmail.com</a>
+                            <a href="tel:+5543996431126">+55 (43) 9 9643-1126</a>
+                            <a href="https://github.com/LeonardoDFS" target="_blank" rel="noopener noreferrer">github.com/LeonardoDFS</a>
+                        </div>
+                    </div>
+
+                    <footer class="now-footer">
+                        <span>© 2026 LEONARDO FREITAS DOS SANTOS</span>
+                        <span>BUILT ACROSS FOUR ERAS // CHRONOS_OS</span>
+                    </footer>
+                </div>
+            </div>
+        </section>
+        </main>
+
+        <nav id="mobile-era-nav" class="mobile-era-nav" aria-label="Navegação móvel entre eras">
+            <a href="#era-01" data-era-index="0" aria-label="Era 01 Terminal"><span class="material-symbols-outlined">terminal</span><small>01</small></a>
+            <a href="#era-02" data-era-index="1" aria-label="Era 02 Desktop"><span class="material-symbols-outlined">desktop_windows</span><small>02</small></a>
+            <a href="#era-03" data-era-index="2" aria-label="Era 03 Y2K"><span class="material-symbols-outlined">language</span><small>03</small></a>
+            <a href="#era-04" data-era-index="3" aria-label="Era 04 Atual"><span class="material-symbols-outlined">fluorescent</span><small>04</small></a>
+        </nav>
+
         <!-- JS -->
         <script src="js/main.js"></script>
         <script src="js/era-system.js"></script>
         <script src="js/win95.js"></script>
-
-    
-        <footer class="w-full flex justify-between px-8 py-4 items-center
-               bg-black border-t border-tertiary/20
-               shadow-[0_-5px_20px_rgba(255,85,241,0.08)]">
-        <div class="text-tertiary font-mono text-[10px] uppercase">
-            © 2026 LEONARDO_FREITAS_SANTOS
-        </div>
-        <div class="flex gap-6 font-mono text-[10px] uppercase text-tertiary/40">
-            <a href="https://github.com/seu-usuario" target="_blank"
-            class="hover:text-tertiary">GITHUB</a>
-            <a href="https://linkedin.com/in/seu-perfil" target="_blank"
-            class="hover:text-tertiary">LINKEDIN</a>
-            <a href="mailto:seu@email.com"
-            class="hover:text-tertiary">EMAIL</a>
-        </div>
-        </footer>
+        <script src="js/projects.js"></script>
     </body>
 </html>

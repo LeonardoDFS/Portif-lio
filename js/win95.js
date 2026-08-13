@@ -9,7 +9,7 @@ function openWindow(id) {
     const win = document.getElementById(id);
     if (!win) return;
 
-    win.style.display = 'block';
+    win.style.display = win.classList.contains('doom-window') ? 'flex' : 'block';
     focusWindow(win);
     addToTaskbar(id);
 
@@ -20,6 +20,7 @@ function closeWindow(id) {
     const win = document.getElementById(id);
     if (!win) return;
 
+    if (id === 'win-snake') stopDoom();
     win.style.display = 'none';
     removeFromTaskbar(id);
 }
@@ -54,10 +55,10 @@ function maximizeWindow(id) {
     win.dataset.prevWidth  = win.style.width;
     win.dataset.prevHeight = win.style.height;
     // maximiza
-    win.style.top    = '56px';
+    win.style.top    = window.innerWidth < 768 ? '64px' : '68px';
     win.style.left   = '0px';
     win.style.width  = '100%';
-    win.style.height = 'calc(100% - 56px)';
+    win.style.height = window.innerWidth < 768 ? 'calc(100% - 158px)' : 'calc(100% - 68px)';
     win.dataset.maximized = 'true';
   }
 
@@ -65,13 +66,13 @@ function maximizeWindow(id) {
 }
 
 // ── FOCAR JANELA (traz pra frente) ────
-function focusWindow(id) {
+function focusWindow(target) {
   // tira o foco de todas
   document.querySelectorAll('.win95-window').forEach(w => {
     w.classList.remove('focused');
   });
   // foca a janela clicada
-  const win = document.getElementById(id);
+  const win = typeof target === 'string' ? document.getElementById(target) : target;
   if (!win) return;
   highestZ++;
   win.style.zIndex = highestZ;
@@ -96,7 +97,7 @@ function addToTaskbar(id) {
     const w = document.getElementById(id);
     if (w.style.display === 'none') {
       // restaura se minimizada
-      w.style.display = 'block';
+      w.style.display = w.classList.contains('doom-window') ? 'flex' : 'block';
       btn.style.borderStyle = '';
       focusWindow(id);
     } else if (w.classList.contains('focused')) {
@@ -123,18 +124,20 @@ function makeDraggable(win) {
   let isDragging = false;
   let startX, startY, startLeft, startTop;
 
-  titlebar.addEventListener('mousedown', (e) => {
-    if (e.target.classList.contains('win95-btn')) return;
+  titlebar.addEventListener('pointerdown', (e) => {
+    if (window.innerWidth < 768 || win.dataset.maximized === 'true') return;
+    if (e.target.closest('.win95-btn')) return;
     isDragging = true;
     startX    = e.clientX;
     startY    = e.clientY;
     startLeft = parseInt(win.style.left) || 0;
     startTop  = parseInt(win.style.top)  || 0;
     focusWindow(win.id);
+    titlebar.setPointerCapture?.(e.pointerId);
     e.preventDefault();
   });
 
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener('pointermove', (e) => {
     if (!isDragging) return;
     const dx   = e.clientX - startX;
     const dy   = e.clientY - startY;
@@ -142,7 +145,7 @@ function makeDraggable(win) {
     win.style.top  = (startTop  + dy) + 'px';
   });
 
-  document.addEventListener('mouseup', () => {
+  document.addEventListener('pointerup', () => {
     isDragging = false;
   });
 }
@@ -166,7 +169,8 @@ function startClock() {
 // ── SYSTEM ERROR AUTOMÁTICO ───────────
 function scheduleSystemError() {
   setTimeout(() => {
-    openWindow('win-error');
+    const era2 = document.getElementById('era-02');
+    if (era2?.classList.contains('active')) openWindow('win-error');
   }, 3000); // aparece 3s após entrar na ERA_02
 }
 
@@ -197,7 +201,46 @@ observer.observe(document.getElementById('era-02'), {
 function startDoom() {
     const overlay = document.getElementById('doom-overlay');
     const frame   = document.getElementById('doom-frame');
-    if (overlay) overlay.style.display = 'none';
-    // Força o foco no iframe para o teclado funcionar
-    if (frame) frame.focus();
+    if (!overlay || !frame) return;
+
+    const status = overlay.querySelector('span:nth-child(2)');
+    if (status) status.textContent = 'INICIALIZANDO...';
+    overlay.disabled = true;
+
+    const revealGame = () => {
+      if (frame.src === 'about:blank') return;
+      overlay.style.display = 'none';
+      frame.focus();
+    };
+
+    if (frame.src === 'about:blank') {
+      frame.onload = () => {
+        frame.onload = null;
+        revealGame();
+      };
+      frame.src = frame.dataset.src;
+    } else {
+      revealGame();
+    }
 }
+
+function stopDoom() {
+  const overlay = document.getElementById('doom-overlay');
+  const frame = document.getElementById('doom-frame');
+  if (!overlay || !frame) return;
+
+  // Navegar o iframe encerra o documento, o áudio e o worker do emulador.
+  frame.onload = null;
+  frame.src = 'about:blank';
+  overlay.style.display = 'flex';
+  overlay.disabled = false;
+
+  const status = overlay.querySelector('span:nth-child(2)');
+  if (status) status.textContent = '▶ Clique aqui para jogar';
+}
+
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  const focused = [...document.querySelectorAll('.win95-window.focused')].pop();
+  if (focused) closeWindow(focused.id);
+});

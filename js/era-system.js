@@ -1,78 +1,145 @@
-const eras      = ['era-01', 'era-02', 'era-03', 'era-04'];
-let current     = 0;
-let isAnimating = false;
+const eras = ['era-01', 'era-02', 'era-03', 'era-04'];
+const eraLabels = [
+  'ERA_01 / TERMINAL',
+  'ERA_02 / DESKTOP',
+  'ERA_03 / Y2K_WEB',
+  'ERA_04 / PRESENT_DAY',
+];
 
-function initEras() {
-  eras.forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (i === 0) el.classList.add('active');
-  });
+let current = 0;
+let isAnimating = false;
+let scrollCooldown = false;
+
+function getEraIndexFromHash() {
+  const id = window.location.hash.replace('#', '');
+  const index = eras.indexOf(id);
+  return index >= 0 ? index : current;
 }
 
-function goToEra(index) {
-  if (isAnimating) return;
-  if (index < 0 || index >= eras.length) return;
-  if (index === current) return;
+function updateNavigation() {
+  document.querySelectorAll('[data-era-index]').forEach(link => {
+    const isCurrent = Number(link.dataset.eraIndex) === current;
+    link.classList.toggle('active', isCurrent);
+    link.classList.toggle('bg-primary/10', isCurrent);
+    link.classList.toggle('text-primary', isCurrent);
+    link.classList.toggle('border-l-2', isCurrent && link.closest('aside'));
+    link.classList.toggle('border-primary', isCurrent && link.closest('aside'));
+    link.classList.toggle('text-primary/30', !isCurrent && link.closest('aside'));
+
+    if (isCurrent) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+
+  const label = document.getElementById('current-era-label');
+  if (label) label.textContent = eraLabels[current];
+}
+
+function setActiveEra(index) {
+  eras.forEach((id, i) => {
+    const era = document.getElementById(id);
+    if (!era) return;
+    era.classList.toggle('active', i === index);
+    era.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+  });
+
+  current = index;
+  updateNavigation();
+}
+
+function initEras() {
+  const initial = getEraIndexFromHash();
+  setActiveEra(initial);
+}
+
+function goToEra(index, options = {}) {
+  const { updateHistory = true, instant = false } = options;
+  if (isAnimating || index < 0 || index >= eras.length || index === current) return;
 
   const target = document.getElementById(eras[index]);
-  if (!target) return;
-
-  isAnimating = true;
-
+  const active = document.getElementById(eras[current]);
   const overlay = document.getElementById('glitch-overlay');
-  overlay.classList.add('fade-in');
+  if (!target || !active || !overlay) return;
 
-  setTimeout(() => {
-    document.getElementById(eras[current]).classList.remove('active');
-    target.classList.add('active');
-    current = index;
-    updateSidebar();
+  if (current === 1 && index !== 1 && typeof stopDoom === 'function') {
+    stopDoom();
+  }
+
+  const completeTransition = () => {
+    setActiveEra(index);
+    target.querySelector('.era-scroll')?.scrollTo({ top: 0, behavior: 'auto' });
+
+    if (updateHistory) {
+      history.pushState({ era: eras[index] }, '', `#${eras[index]}`);
+    }
 
     overlay.classList.remove('fade-in');
     overlay.classList.add('fade-out');
-
-    setTimeout(() => {
+    window.setTimeout(() => {
       overlay.classList.remove('fade-out');
       isAnimating = false;
-    }, 300);
-  }, 300);
+    }, instant ? 0 : 300);
+  };
+
+  if (instant || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    completeTransition();
+    return;
+  }
+
+  isAnimating = true;
+  const loadingText = document.getElementById('loading-text');
+  if (loadingText) loadingText.textContent = `LOADING ${eraLabels[index]}...`;
+  overlay.classList.add('fade-in');
+  window.setTimeout(completeTransition, 300);
 }
 
-function updateSidebar() {
-  document.querySelectorAll('aside nav a').forEach((link, i) => {
-    if (i === current) {
-      link.classList.add('bg-primary/10', 'text-primary', 'border-l-2', 'border-primary');
-      link.classList.remove('text-primary/30');
-    } else {
-      link.classList.remove('bg-primary/10', 'text-primary', 'border-l-2', 'border-primary');
-      link.classList.add('text-primary/30');
-    }
-  });
+function canScrollCurrentEra(deltaY) {
+  const activeEra = document.getElementById(eras[current]);
+  const scrollArea = activeEra?.querySelector('.era-scroll, .overflow-y-auto');
+  if (!scrollArea || scrollArea.scrollHeight <= scrollArea.clientHeight + 2) return false;
+
+  if (deltaY > 0) {
+    return scrollArea.scrollTop + scrollArea.clientHeight < scrollArea.scrollHeight - 2;
+  }
+  return scrollArea.scrollTop > 2;
 }
 
-let scrollCooldown = false;
+window.addEventListener('wheel', event => {
+  if (!window.matchMedia('(pointer: fine) and (min-width: 768px)').matches) return;
+  if (scrollCooldown || isAnimating || canScrollCurrentEra(event.deltaY)) return;
 
-window.addEventListener('wheel', (e) => {
-  if (scrollCooldown || isAnimating) return;
-  scrollCooldown = true;                          // ← linha corrigida
-  setTimeout(() => scrollCooldown = false, 800);
-  if (e.deltaY > 0) goToEra(current + 1);
-  else              goToEra(current - 1);
-});
+  scrollCooldown = true;
+  window.setTimeout(() => { scrollCooldown = false; }, 700);
+  if (event.deltaY > 0) goToEra(current + 1);
+  else goToEra(current - 1);
+}, { passive: true });
 
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goToEra(current + 1);
-  if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  goToEra(current - 1);
+window.addEventListener('keydown', event => {
+  const interactive = event.target.closest?.('a, button, input, textarea, select, iframe');
+  if (interactive) return;
+
+  if (event.key === 'ArrowDown' || event.key === 'ArrowRight' || event.key === 'PageDown') {
+    goToEra(current + 1);
+  }
+  if (event.key === 'ArrowUp' || event.key === 'ArrowLeft' || event.key === 'PageUp') {
+    goToEra(current - 1);
+  }
 });
 
 document.querySelectorAll('a[href^="#era-"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const id    = link.getAttribute('href').replace('#', '');
-    const index = eras.indexOf(id);
-    if (index !== -1) goToEra(index);
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    const index = eras.indexOf(link.hash.replace('#', ''));
+    if (index === current) {
+      document.getElementById(eras[current])?.querySelector('.era-scroll, .overflow-y-auto')?.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    goToEra(index);
   });
+});
+
+window.addEventListener('popstate', () => {
+  const index = getEraIndexFromHash();
+  if (index !== current) goToEra(index, { updateHistory: false, instant: true });
 });
 
 initEras();
